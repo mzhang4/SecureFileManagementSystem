@@ -11,3 +11,15 @@ sudo install_name_tool -change libmysqlclient.18.dylib /usr/local/mysql/lib/libm
 2.install pycrypto(The Python Cryptography Toolkit) which used in this project:
 sudo pip install pycrypto
 
+then you need add your database info into mysql:
+mysql -uroot
+flush privileges;
+CREATE USER 'CS8120'@'localhost' IDENTIFIED BY 'CS8120';
+GRANT ALL PRIVILEGES ON *.* TO 'CS8120'@'localhost'
+    -> WITH GRANT OPTION;
+
+then you can operate with:
+mysql -uCS8120 -p
+CREATE DATABASE CS8120;
+
+then follow create_tables.sql in experiment/sql instruction to create tables.
