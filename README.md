@@ -23,3 +23,15 @@ mysql -uCS8120 -p
 CREATE DATABASE CS8120;
 
 then follow create_tables.sql in experiment/sql instruction to create tables.
+
+before you actually create the first admin user use:
+python adminCreator.py 
+
+you need prepare a folder to install your key like this:
+/Volumes/NO\ NAME/keys
+for me, I store keys in a usb driver named NO NAME, then a folder named keys.
+
+after these, you can create your first admin user now!
+python adminCreator.py
+then you can login in
+python main.py use the user you created.
