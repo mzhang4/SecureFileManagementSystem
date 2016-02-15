@@ -1,55 +1,38 @@
-# Secure-file-management-system
-1.install mysql, then install Python interface to MySQL,
-for example, on MAC:
+# SecureFileManagementSystem
 
-export PATH=$PATH:/usr/local/mysql/bin
+## Overview:
+-------------------------
 
-sudo pip install MySQL-python 
+This project aims at designing and implementing a secured file system for users.
+To authenticate a user, we need to verify the password and the symmetric key each user has.
+The key is stored in database by hashing the password + salt.
+After that, the file is able to be encrpted and decrpted using the AES, CBC mode.
 
-some problem you may come across:
+Installation instructions
+-------------------------
 
-otool -L /Library/Python/2.7/site-packages/_mysql.so
+## Prerequisites
+Required:
 
-sudo install_name_tool -change libmysqlclient.18.dylib /usr/local/mysql/lib/libmysqlclient.18.dylib /Library/Python/2.7/site-packages/_mysql.so
+* python 2.7
+* pycrypto lib
+* MySQL
 
-2.install pycrypto(The Python Cryptography Toolkit) which used in this project:
 
-sudo pip install pycrypto
+## pycrypto lib
+To install pycrypto, you can simply use easy_install or pip_install to install it
 
-then you need add your database info into mysql:
+## MySQL
+You need to have a user `CS8120` with password `CS8120`, under it, Database `CS8120` should be created.
+And a table called `USER` and `FILE` should be created under this database, for more detailed info, you can check the schema in schema.sql
 
-mysql -uroot
 
-flush privileges;
+## Build
 
-CREATE USER 'CS8120'@'localhost' IDENTIFIED BY 'CS8120';
+Before you can actually run the system, you should create a admin user.
+First, you need to prepare a folder with your device(can be USB) to save or install your keys.
+for example, the folder can be called /Volumes/NO\ NAME/keys, then do:
+> python adminCreator.py 
 
-GRANT ALL PRIVILEGES ON *.* TO 'CS8120'@'localhost'
-
-    -> WITH GRANT OPTION;
-
-then you can operate with:
-
-mysql -uCS8120 -p
-
-CREATE DATABASE CS8120;
-
-then follow create_tables.sql in experiment/sql instruction to create tables.
-
-before you actually create the first admin user use:
-
-python adminCreator.py 
-
-you need prepare a folder to install your key like this:
-
-/Volumes/NO\ NAME/keys
-
-for me, I store keys in a usb driver named NO NAME, then a folder named keys.
-
-after these, you can create your first admin user now!
-
-python adminCreator.py
-
-then you can login in
-
-python main.py use the user you created.
+Afther successfully creating the first admin user, you can build and run the system for all: 
+> python main.py
